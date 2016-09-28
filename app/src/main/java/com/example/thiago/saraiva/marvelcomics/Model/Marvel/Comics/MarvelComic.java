@@ -2,7 +2,8 @@ package com.example.thiago.saraiva.marvelcomics.Model.Marvel.Comics;
 
 import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Common.MarvelTextObject;
 import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Common.MarvelThumbnail;
-import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Creators.MarvelCreatorsList;
+import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Creators.MarvelCreator;
+import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Creators.MarvelCreatorSummary;
 
 import java.util.Date;
 
@@ -22,7 +23,7 @@ public class MarvelComic {
     MarvelThumbnail thumbnail; //The representative image for this comic.,
     MarvelTextObject[] textObjects; //A set of descriptive text blurbs for the comic.,
     MarvelComicPrice[] prices; //A list of prices for this comic.,
-    MarvelCreatorsList[] creators; //A resource list containing the creators associated with this comic.,
+    MarvelCreatorSummary creators; //A resource list containing the creators associated with this comic.,
 //    characters (CharacterList, optional): A resource list containing the characters which appear in this comic.,
 
 
@@ -114,11 +115,11 @@ public class MarvelComic {
         this.thumbnail = thumbnail;
     }
 
-    public MarvelCreatorsList[] getCreators() {
+    public MarvelCreatorSummary getCreators() {
         return creators;
     }
 
-    public void setCreators(MarvelCreatorsList[] creators) {
+    public void setCreators(MarvelCreatorSummary creators) {
         this.creators = creators;
     }
 }

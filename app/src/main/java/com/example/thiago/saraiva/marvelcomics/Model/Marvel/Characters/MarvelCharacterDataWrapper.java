@@ -1,4 +1,4 @@
-package com.example.thiago.saraiva.retrofithelloworld.Model.Marvel.Characters;
+package com.example.thiago.saraiva.marvelcomics.Model.Marvel.Characters;
 
 /**
  * Created by thsaraiva on 23/09/2016.

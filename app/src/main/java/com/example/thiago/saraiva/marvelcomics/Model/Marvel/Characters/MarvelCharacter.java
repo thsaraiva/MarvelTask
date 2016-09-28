@@ -1,6 +1,7 @@
-package com.example.thiago.saraiva.retrofithelloworld.Model.Marvel.Characters;
+package com.example.thiago.saraiva.marvelcomics.Model.Marvel.Characters;
 
-import com.example.thiago.saraiva.retrofithelloworld.Model.Marvel.Common.MarvelThumbnail;
+
+import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Common.MarvelThumbnail;
 
 /**
  * Created by thsaraiva on 21/09/2016.

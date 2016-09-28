@@ -4,23 +4,32 @@ package com.example.thiago.saraiva.marvelcomics.Model.Marvel.Creators;
  * Created by thsaraiva on 23/09/2016.
  */
 public class MarvelCreatorSummary {
-//    resourceURI (string, optional): The path to the individual creator resource.,
-    String name; //The full name of the creator.,
-    String role; //The role of the creator in the parent entity.
+    int available; //Available creators in this list. Always greater than or equal than "returned" value.,
+    int returned; //The number of creators returned in this collection (up to 20).,
+//    collectionURI (string, optional): The path to the full list of creators in this collection.,
+    MarvelCreator[]items; //The list of returned creators in this collection.
 
-    public String getName() {
-        return name;
+    public int getAvailable() {
+        return available;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAvailable(int available) {
+        this.available = available;
     }
 
-    public String getRole() {
-        return role;
+    public int getReturned() {
+        return returned;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setReturned(int returned) {
+        this.returned = returned;
+    }
+
+    MarvelCreator[] getItems() {
+        return items;
+    }
+
+    public void setItems(MarvelCreator[] items) {
+        this.items = items;
     }
 }
