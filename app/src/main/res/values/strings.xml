@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Marvel Comics</string>
+    <string name="default_description_text">No description available</string>
 </resources>
