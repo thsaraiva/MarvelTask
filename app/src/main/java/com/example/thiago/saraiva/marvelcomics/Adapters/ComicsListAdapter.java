@@ -8,17 +8,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.thiago.saraiva.marvelcomics.Listeners.ComicsListItemClickListener;
+import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Comics.MarvelComic;
 import com.example.thiago.saraiva.marvelcomics.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by thsaraiva on 12/09/2016.
  */
 public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.MyViewHolder> {
-    //TODO: what object should this list hold?
-    private List<String> mDataset;
+    private List<MarvelComic> mDataset;
     private static ComicsListItemClickListener mListener;
+
+    public ComicsListAdapter(ComicsListItemClickListener listener) {
+        mDataset = new ArrayList<MarvelComic>();
+        mListener = listener;
+    }
+
+    public void setmDataset(List<MarvelComic> mDataset) {
+        this.mDataset = mDataset;
+        this.notifyDataSetChanged();
+    }
 
 
     // Provide a reference to the views for each data item
@@ -45,11 +56,6 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
         }
     }
 
-    public ComicsListAdapter(List<String> dataset, ComicsListItemClickListener listener) {
-        mDataset = dataset;
-        mListener = listener;
-    }
-
     @Override
     public ComicsListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
@@ -62,9 +68,15 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
     public void onBindViewHolder(MyViewHolder holder, int position) {
 //        Called by RecyclerView to display the data at the specified position
         //TODO: set thumbnail
-        // set title
-        //set description
-//        holder.mTextView.setText(mDataset.get(position));
+        MarvelComic comic = mDataset.get(position);
+//        holder.mComicThumbnailImageView.setImageBitmap(comic.getThumbnail().getBitMap());
+        holder.mComicTitleTextView.setText(comic.getTitle());
+        String description = comic.getDescription();
+        if (description != null)
+            holder.mComicDescriptionTextView.setText(description.substring(0, 90)+"...");
+        else
+            holder.mComicDescriptionTextView.setText(R.string.default_description_text);
+
     }
 
     /**
