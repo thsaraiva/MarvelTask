@@ -6,7 +6,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.example.thiago.saraiva.marvelcomics.Adapters.ComicsListAdapter;
+import com.example.thiago.saraiva.marvelcomics.Listeners.ComicsListItemClickListener;
 import com.example.thiago.saraiva.marvelcomics.R;
+
+import java.util.ArrayList;
 
 public class ComicsListActivity extends AppCompatActivity {
 
@@ -27,13 +31,13 @@ public class ComicsListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter to the RecyclerView
-        mAdapter = new ComicsListAdapter(myDataset, new MyAdapterClickListener() {
+        // TODO: who should create and inject the dataset??
+        mAdapter = new ComicsListAdapter(new ArrayList<String>(), new ComicsListItemClickListener() {
 
             @Override
             public void onButtonClick(View v, int position) {
-                String orderSummary = myDataset.get(position);
-                emailOrderSummary(orderSummary);
-                removeListItem(position);
+                //TODO:decide what to do when user clicks an item on the list.
+//                String item = myDataset.get(position);
             }
         });
         mRecyclerView.setAdapter(mAdapter);
