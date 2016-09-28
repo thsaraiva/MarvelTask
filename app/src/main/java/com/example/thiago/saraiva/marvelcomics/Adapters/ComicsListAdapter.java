@@ -1,6 +1,7 @@
 package com.example.thiago.saraiva.marvelcomics.Adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,14 +67,15 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
                         .into(mComicThumbnailImageView);
             } else {
                 Picasso.with(mComicThumbnailImageView.getContext()).load(R.drawable.no_image).into(mComicThumbnailImageView);
+                Log.e("ComicsListAdapter", "No image available.Using default");
             }
+
         }
 
         public void setTitle(String title) {
             if (title != null) {
                 mComicTitleTextView.setText(title);
-            }
-            else {
+            } else {
                 mComicTitleTextView.setText(R.string.default_title_text);
             }
         }
