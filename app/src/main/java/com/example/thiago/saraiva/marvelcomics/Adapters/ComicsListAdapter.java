@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.example.thiago.saraiva.marvelcomics.Listeners.ComicsListItemClickListener;
 import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Comics.MarvelComic;
+import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Common.MarvelThumbnail;
 import com.example.thiago.saraiva.marvelcomics.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +56,34 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
                 }
             });
         }
+
+        public void setImage(String url) {
+            if (url != "" && url != null) {
+                Picasso.with(mComicThumbnailImageView.getContext())
+                        .load(url)
+                        .placeholder(R.drawable.no_image)
+                        .error(R.drawable.no_image_error)
+                        .into(mComicThumbnailImageView);
+            } else {
+                Picasso.with(mComicThumbnailImageView.getContext()).load(R.drawable.no_image).into(mComicThumbnailImageView);
+            }
+        }
+
+        public void setTitle(String title) {
+            if (title != null) {
+                mComicTitleTextView.setText(title);
+            }
+            else {
+                mComicTitleTextView.setText(R.string.default_title_text);
+            }
+        }
+
+        public void setDescription(String description) {
+            if (description != null)
+                mComicDescriptionTextView.setText(description.substring(0, 90) + "...");
+            else
+                mComicDescriptionTextView.setText(R.string.default_description_text);
+        }
     }
 
     @Override
@@ -67,15 +97,15 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 //        Called by RecyclerView to display the data at the specified position
-        //TODO: set thumbnail
         MarvelComic comic = mDataset.get(position);
-//        holder.mComicThumbnailImageView.setImageBitmap(comic.getThumbnail().getBitMap());
-        holder.mComicTitleTextView.setText(comic.getTitle());
-        String description = comic.getDescription();
-        if (description != null)
-            holder.mComicDescriptionTextView.setText(description.substring(0, 90)+"...");
-        else
-            holder.mComicDescriptionTextView.setText(R.string.default_description_text);
+        MarvelThumbnail thumbnail = comic.getThumbnail();
+        String url = "";
+        if (thumbnail != null) {
+            url = thumbnail.getPath() + "." + thumbnail.getExtension();
+        }
+        holder.setImage(url);
+        holder.setTitle(comic.getTitle());
+        holder.setDescription(comic.getDescription());
 
     }
 
