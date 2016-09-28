@@ -7,10 +7,10 @@
     android:paddingLeft="@dimen/comics_list_margin"
     android:paddingRight="@dimen/comics_list_margin"
     android:paddingTop="@dimen/comics_list_margin"
-    tools:context="com.example.thiago.saraiva.marvelcomics.ComicsListActivity">
+    tools:context=".Activities.ComicsListActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/comics_list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </RelativeLayout>
