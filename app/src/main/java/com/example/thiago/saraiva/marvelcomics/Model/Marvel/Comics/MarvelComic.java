@@ -82,11 +82,11 @@ public class MarvelComic {
         this.format = format;
     }
 
-    public com.example.thiago.saraiva.retrofithelloworld.Model.Marvel.Common.MarvelTextObject[] getTextObjects() {
+    public MarvelTextObject[] getTextObjects() {
         return textObjects;
     }
 
-    public void setTextObjects(com.example.thiago.saraiva.retrofithelloworld.Model.Marvel.Common.MarvelTextObject[] textObjects) {
+    public void setTextObjects(MarvelTextObject[] textObjects) {
         this.textObjects = textObjects;
     }
 
@@ -98,27 +98,27 @@ public class MarvelComic {
         this.resourceURI = resourceURI;
     }
 
-    public com.example.thiago.saraiva.retrofithelloworld.Model.Marvel.Comics.MarvelComicPrice[] getPrices() {
+    public MarvelComicPrice[] getPrices() {
         return prices;
     }
 
-    public void setPrices(com.example.thiago.saraiva.retrofithelloworld.Model.Marvel.Comics.MarvelComicPrice[] prices) {
+    public void setPrices(MarvelComicPrice[] prices) {
         this.prices = prices;
     }
 
-    public com.example.thiago.saraiva.retrofithelloworld.Model.Marvel.Common.MarvelThumbnail getThumbnail() {
+    public MarvelThumbnail getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(com.example.thiago.saraiva.retrofithelloworld.Model.Marvel.Common.MarvelThumbnail thumbnail) {
+    public void setThumbnail(MarvelThumbnail thumbnail) {
         this.thumbnail = thumbnail;
     }
 
-    public com.example.thiago.saraiva.retrofithelloworld.Model.Marvel.Creators.MarvelCreatorsList[] getCreators() {
+    public MarvelCreatorsList[] getCreators() {
         return creators;
     }
 
-    public void setCreators(com.example.thiago.saraiva.retrofithelloworld.Model.Marvel.Creators.MarvelCreatorsList[] creators) {
+    public void setCreators(MarvelCreatorsList[] creators) {
         this.creators = creators;
     }
 }
