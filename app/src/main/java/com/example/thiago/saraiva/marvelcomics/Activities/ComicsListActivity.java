@@ -1,6 +1,7 @@
 package com.example.thiago.saraiva.marvelcomics.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -65,5 +66,10 @@ public class ComicsListActivity extends AppCompatActivity {
             return true;
         else
             return false;
+    }
+
+    public void openDescriptionView(View view) {
+        Intent detailActIntent = new Intent(this,ComicDetailsActivity.class);
+        startActivity(detailActIntent);
     }
 }
