@@ -14,6 +14,12 @@ public class MarvelComicDataContainer {
 
     MarvelComic[] results; //The list of characters returned by the call.
 
+    private int resultsInList;
+
+    private String listPrice;
+
+    private int totalNumberOfPagesInList;
+
     public int getOffset() {
         return offset;
     }
@@ -52,5 +58,29 @@ public class MarvelComicDataContainer {
 
     public void setResults(MarvelComic[] results) {
         this.results = results;
+    }
+
+    public int getTotalNumberOfPagesInList() {
+        return totalNumberOfPagesInList;
+    }
+
+    public void setTotalNumberOfPagesInList(int totalNumberOfPagesInList) {
+        this.totalNumberOfPagesInList = totalNumberOfPagesInList;
+    }
+
+    public int getResultsInList() {
+        return resultsInList;
+    }
+
+    public void setResultsInList(int resultsInList) {
+        this.resultsInList = resultsInList;
+    }
+
+    public String getListPrice() {
+        return listPrice;
+    }
+
+    public void setListPrice(String listPrice) {
+        this.listPrice = listPrice;
     }
 }

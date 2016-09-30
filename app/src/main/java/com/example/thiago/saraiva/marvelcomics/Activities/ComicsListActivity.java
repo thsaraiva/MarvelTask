@@ -13,10 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.thiago.saraiva.marvelcomics.Adapters.ComicsListAdapter;
+import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Comics.MarvelComicDataContainer;
 import com.example.thiago.saraiva.marvelcomics.R;
 import com.example.thiago.saraiva.marvelcomics.Services.ServiceGenerator;
 
-public class ComicsListActivity extends AppCompatActivity {
+public class ComicsListActivity extends AppCompatActivity implements ComicListActivityDataSender {
 
     private RecyclerView mRecyclerView;
     private ComicsListAdapter mAdapter;
@@ -66,21 +67,24 @@ public class ComicsListActivity extends AppCompatActivity {
         if (budgetValue == null || budgetValue.equalsIgnoreCase("")) {
             Toast.makeText(this, getResources().getString(R.string.please_provide_budget), Toast.LENGTH_LONG).show();
         } else {
-            mAdapter.filterComicListonBudget(budgetValue);
+            mAdapter.filterComicListOnBudget(budgetValue);
         }
     }
 
-    public void updateResultsLabel(int result) {
+    @Override
+    public void updateResultsLabel(MarvelComicDataContainer dataContainer) {
         TextView resultLabel = (TextView) findViewById(R.id.results_label);
-        resultLabel.setText(getResources().getString(R.string.results_no_filter, result));
+        String listPrice = dataContainer.getListPrice();
+        if (listPrice.equalsIgnoreCase(null) || listPrice.equalsIgnoreCase("")) {
+            resultLabel.setText(getResources().getString(R.string.results_no_filter, dataContainer.getResultsInList()));
+        } else {
+            resultLabel.setText(getResources().getString(R.string.results_budget_filtered, dataContainer.getResultsInList(), listPrice));
+        }
         resultLabel.setVisibility(View.VISIBLE);
-    }
 
-    public void updateResultsLabelFiltered(int result, String budgetValue) {
-        TextView resultLabel = (TextView) findViewById(R.id.results_label);
-        resultLabel.setText(getResources().getString(R.string.results_budget_filtered, result, budgetValue));
-        resultLabel.setVisibility(View.VISIBLE);
+        TextView totalPagesLabel = (TextView) findViewById(R.id.total_pages_label);
+        totalPagesLabel.setText(getResources().getString(R.string.total_pages_default_value, dataContainer.getTotalNumberOfPagesInList()));
+        totalPagesLabel.setVisibility(View.VISIBLE);
     }
-
 
 }

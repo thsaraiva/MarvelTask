@@ -16,4 +16,5 @@
     <string name="results_no_filter">Displaying <xliff:g example="100" id="total">%s</xliff:g> results with no budget filter:</string>
     <string name="results_budget_filtered">Displaying <xliff:g example="100" id="total">%s</xliff:g> results with $<xliff:g example="100" id="total">%s</xliff:g> budget filter:</string>
     <string name="please_provide_budget">Please provide a budget before filtering.</string>
+    <string name="total_pages_default_value">Total number of pages: <xliff:g example="100" id="total">%s</xliff:g>.</string>
 </resources>

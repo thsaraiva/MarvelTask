@@ -1,11 +1,13 @@
 package com.example.thiago.saraiva.marvelcomics.Services;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.thiago.saraiva.marvelcomics.Adapters.ComicsListAdapter;
 import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Comics.MarvelComic;
 import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Comics.MarvelComicDataContainer;
 import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Comics.MarvelComicDataWrapper;
+import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Comics.MarvelComicPrice;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -80,9 +82,36 @@ public class ServiceGenerator {
                 if (code == 200) {
                     MarvelComicDataWrapper cdw = response.body();
                     MarvelComicDataContainer dataContainer = cdw.getData();
-                    ArrayList<MarvelComic> comicsList = new ArrayList(Arrays.asList(dataContainer.getResults()));
-                    adapter.setmDataset(comicsList);
-                    Log.d("ComicsListActivity", "Request successful!!");
+
+                    //asyncTask to get totalPageNumber & Price of list items
+                    AsyncTask<MarvelComicDataContainer, Void, MarvelComicDataContainer> calculatePriceAndPages = new AsyncTask<MarvelComicDataContainer, Void, MarvelComicDataContainer>() {
+                        @Override
+                        protected MarvelComicDataContainer doInBackground(MarvelComicDataContainer... lists) {
+                            MarvelComicDataContainer dataContainer = lists[0];
+                            ArrayList<MarvelComic> comicsList = new ArrayList(Arrays.asList(dataContainer.getResults()));
+                            //create a new List of MarvelComic, with all comics that can be afforded with the budget.
+                            int totalNumberOfPages = 0;
+                            float totalPrice = 0.0f;
+                            for (MarvelComic mc : comicsList) {
+                                MarvelComicPrice marvelComicPrice = mc.getPrices()[0];
+                                if (marvelComicPrice != null) {
+                                    totalPrice += marvelComicPrice.getPrice();
+                                    totalNumberOfPages += mc.getPageCount();
+                                }
+                            }
+                            dataContainer.setResultsInList(comicsList.size());
+                            dataContainer.setTotalNumberOfPagesInList(totalNumberOfPages);
+                            dataContainer.setListPrice(""+totalPrice);
+                            return dataContainer;
+                        }
+
+                        @Override
+                        protected void onPostExecute(MarvelComicDataContainer marvelComicDataContainer) {
+                            adapter.setDataContainer(marvelComicDataContainer);
+                            Log.d("ComicsListActivity", "Request successful!!");
+                        }
+                    };
+                    calculatePriceAndPages.execute(dataContainer);
                 } else {
                     Log.d("ComicsListActivity", "Request successful but something went wrong parsing!!");
                 }
