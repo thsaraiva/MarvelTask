@@ -10,7 +10,11 @@ import android.widget.TextView;
 
 import com.example.thiago.saraiva.marvelcomics.Listeners.ComicsListItemClickListener;
 import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Comics.MarvelComic;
+import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Comics.MarvelComicPrice;
+import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Common.MarvelTextObject;
 import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Common.MarvelThumbnail;
+import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Creators.MarvelCreator;
+import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Creators.MarvelCreatorSummary;
 import com.example.thiago.saraiva.marvelcomics.R;
 import com.squareup.picasso.Picasso;
 
@@ -22,11 +26,9 @@ import java.util.List;
  */
 public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.MyViewHolder> {
     private List<MarvelComic> mDataset;
-    private static ComicsListItemClickListener mListener;
 
-    public ComicsListAdapter(ComicsListItemClickListener listener) {
+    public ComicsListAdapter() {
         mDataset = new ArrayList<MarvelComic>();
-        mListener = listener;
     }
 
     public void setmDataset(List<MarvelComic> mDataset) {
@@ -43,12 +45,18 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
         public ImageView mComicThumbnailImageView;
         public TextView mComicTitleTextView;
         public TextView mComicDescriptionTextView;
+        private TextView mComicPagesTextView;
+        private TextView mComicPriceTextView;
+        private TextView mComicAuthorsTextView;
 
         public MyViewHolder(View listItemLayoutView) {
             super(listItemLayoutView);
             mComicThumbnailImageView = (ImageView) listItemLayoutView.findViewById(R.id.comic_image);
             mComicTitleTextView = (TextView) listItemLayoutView.findViewById(R.id.comic_title);
+            mComicPagesTextView = (TextView) listItemLayoutView.findViewById(R.id.comic_pages);
+            mComicPriceTextView = (TextView) listItemLayoutView.findViewById(R.id.comic_price);
             mComicDescriptionTextView = (TextView) listItemLayoutView.findViewById(R.id.comic_description);
+            mComicAuthorsTextView = (TextView) listItemLayoutView.findViewById(R.id.comic_author);
 
             View titleView = listItemLayoutView.findViewById(R.id.titleView);
             final View descriptionView = listItemLayoutView.findViewById(R.id.descriptionView);
@@ -86,11 +94,32 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
             }
         }
 
+        public void setPages(String pages) {
+            if (pages != null)
+                mComicPagesTextView.setText(pages);
+            else
+                mComicPagesTextView.setText(R.string.default_page_text);
+        }
+
+        public void setPrices(String prices) {
+            if (prices != null)
+                mComicPriceTextView.setText(prices);
+            else
+                mComicPriceTextView.setText(R.string.default_price_text);
+        }
+
         public void setDescription(String description) {
             if (description != null)
-                mComicDescriptionTextView.setText(description.substring(0, 90) + "...");
+                mComicDescriptionTextView.setText(description);
             else
                 mComicDescriptionTextView.setText(R.string.default_description_text);
+        }
+
+        public void setAuthors(String authors) {
+            if (authors != null)
+                mComicAuthorsTextView.setText(authors);
+            else
+                mComicAuthorsTextView.setText(R.string.default_author_text);
         }
     }
 
@@ -113,7 +142,28 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
         }
         holder.setImage(url);
         holder.setTitle(comic.getTitle());
+        holder.setPages(""+comic.getPageCount());
+        MarvelComicPrice marvelComicPrice = comic.getPrices()[0];
+        if (marvelComicPrice != null){
+            holder.setPrices(""+marvelComicPrice.getPrice());
+        }else{
+            holder.setPrices(null);
+        }
         holder.setDescription(comic.getDescription());
+        MarvelCreatorSummary creatorsSummary = comic.getCreators();
+        int totalAuthorsNumber = creatorsSummary.getReturned();
+        MarvelCreator[] authors = creatorsSummary.getItems();
+        String authorsNames = "";
+        for(int i = 0; i < totalAuthorsNumber;i++){
+            String name = authors[i].getName();
+            if(name!= null){
+                authorsNames+=name;
+            }
+            if(i != totalAuthorsNumber-1){
+                authorsNames+=" / ";
+            }
+        }
+        holder.setAuthors(authorsNames);
 
     }
 

@@ -37,13 +37,7 @@ public class ComicsListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter to the RecyclerView
-        mAdapter = new ComicsListAdapter(new ComicsListItemClickListener() {
-
-            @Override
-            public void onButtonClick(View v, int position) {
-
-            }
-        });
+        mAdapter = new ComicsListAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
         serviceGenerator = new ServiceGenerator();

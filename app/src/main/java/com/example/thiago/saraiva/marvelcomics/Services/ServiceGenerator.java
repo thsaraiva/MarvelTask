@@ -70,7 +70,7 @@ public class ServiceGenerator {
 
     public void getMarvelComicsList(final ComicsListAdapter adapter) {
         MarvelAPI marvelAPI = retrofit.create(MarvelAPI.class);
-        Call<MarvelComicDataWrapper> marvelComicsListCall = marvelAPI.getComics("" + 20);
+        Call<MarvelComicDataWrapper> marvelComicsListCall = marvelAPI.getComics("" + 100);
 
         //makes an asynchronous call to obtain the list of comics.
         marvelComicsListCall.enqueue(new Callback<MarvelComicDataWrapper>() {

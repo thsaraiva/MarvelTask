@@ -25,7 +25,7 @@ public class MarvelCreatorSummary {
         this.returned = returned;
     }
 
-    MarvelCreator[] getItems() {
+    public MarvelCreator[] getItems() {
         return items;
     }
 
