@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Marvel Comics</string>
     <string name="default_title_text">No title available</string>
     <string name="default_page_text">NA</string>
@@ -10,4 +10,10 @@
     <string name="pages_label">Pages:</string>
     <string name="description_label">Description:</string>
     <string name="author_label">Authors:</string>
+    <string name="budget">Budget:</string>
+    <string name="filter">Filter</string>
+    <string name="one_hundred">$100</string>
+    <string name="results_no_filter">Displaying <xliff:g example="100" id="total">%s</xliff:g> results with no budget filter:</string>
+    <string name="results_budget_filtered">Displaying <xliff:g example="100" id="total">%s</xliff:g> results with $<xliff:g example="100" id="total">%s</xliff:g> budget filter:</string>
+    <string name="please_provide_budget">Please provide a budget before filtering.</string>
 </resources>

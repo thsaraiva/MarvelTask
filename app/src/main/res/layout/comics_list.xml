@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/comics_list_margin"
+    android:paddingLeft="@dimen/comics_list_margin"
+    android:paddingRight="@dimen/comics_list_margin"
+    android:paddingTop="@dimen/comics_list_margin"
+    tools:context=".Activities.ComicsListActivity">
+
+    <RelativeLayout
+        android:id="@+id/budget_filter_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/budget_label"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginRight="8dp"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:text="@string/budget"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/budget"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/budget_label"
+            android:hint="@string/one_hundred"
+            android:singleLine="true"
+            android:textSize="16sp" />
+
+        <Button
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:onClick="filterResultsOnBudget"
+            android:layout_alignParentTop="true"
+            android:text="@string/filter" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/results_label"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_below="@id/budget_filter_layout"
+        android:layout_marginRight="8dp"
+        android:gravity="center_vertical"
+        android:text="@string/results_no_filter"
+        android:visibility="invisible"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/comics_list_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/results_label" />
+</RelativeLayout>

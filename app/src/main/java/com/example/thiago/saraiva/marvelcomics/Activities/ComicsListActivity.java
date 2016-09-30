@@ -1,7 +1,6 @@
 package com.example.thiago.saraiva.marvelcomics.Activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -9,10 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.thiago.saraiva.marvelcomics.Adapters.ComicsListAdapter;
-import com.example.thiago.saraiva.marvelcomics.Listeners.ComicsListItemClickListener;
 import com.example.thiago.saraiva.marvelcomics.R;
 import com.example.thiago.saraiva.marvelcomics.Services.ServiceGenerator;
 
@@ -27,7 +27,7 @@ public class ComicsListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comics_list);
+        setContentView(R.layout.comics_list);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.comics_list_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -37,7 +37,7 @@ public class ComicsListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter to the RecyclerView
-        mAdapter = new ComicsListAdapter();
+        mAdapter = new ComicsListAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
 
         serviceGenerator = new ServiceGenerator();
@@ -60,5 +60,27 @@ public class ComicsListActivity extends AppCompatActivity {
         else
             return false;
     }
+
+    public void filterResultsOnBudget(View view) {
+        String budgetValue = ((EditText) findViewById(R.id.budget)).getText().toString();
+        if (budgetValue == null || budgetValue.equalsIgnoreCase("")) {
+            Toast.makeText(this, getResources().getString(R.string.please_provide_budget), Toast.LENGTH_LONG).show();
+        } else {
+            mAdapter.filterComicListonBudget(budgetValue);
+        }
+    }
+
+    public void updateResultsLabel(int result) {
+        TextView resultLabel = (TextView) findViewById(R.id.results_label);
+        resultLabel.setText(getResources().getString(R.string.results_no_filter, result));
+        resultLabel.setVisibility(View.VISIBLE);
+    }
+
+    public void updateResultsLabelFiltered(int result, String budgetValue) {
+        TextView resultLabel = (TextView) findViewById(R.id.results_label);
+        resultLabel.setText(getResources().getString(R.string.results_budget_filtered, result, budgetValue));
+        resultLabel.setVisibility(View.VISIBLE);
+    }
+
 
 }

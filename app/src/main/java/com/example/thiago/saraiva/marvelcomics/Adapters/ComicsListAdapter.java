@@ -1,5 +1,7 @@
 package com.example.thiago.saraiva.marvelcomics.Adapters;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,10 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.thiago.saraiva.marvelcomics.Listeners.ComicsListItemClickListener;
+import com.example.thiago.saraiva.marvelcomics.Activities.ComicsListActivity;
 import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Comics.MarvelComic;
 import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Comics.MarvelComicPrice;
-import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Common.MarvelTextObject;
 import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Common.MarvelThumbnail;
 import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Creators.MarvelCreator;
 import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Creators.MarvelCreatorSummary;
@@ -19,6 +20,8 @@ import com.example.thiago.saraiva.marvelcomics.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -26,14 +29,11 @@ import java.util.List;
  */
 public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.MyViewHolder> {
     private List<MarvelComic> mDataset;
+    private Context mContext;
 
-    public ComicsListAdapter() {
+    public ComicsListAdapter(Context context) {
         mDataset = new ArrayList<MarvelComic>();
-    }
-
-    public void setmDataset(List<MarvelComic> mDataset) {
-        this.mDataset = mDataset;
-        this.notifyDataSetChanged();
+        mContext = context;
     }
 
 
@@ -123,11 +123,23 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
         }
     }
 
+    public void setmDataset(List<MarvelComic> dataset) {
+        this.mDataset = dataset;
+        this.notifyDataSetChanged();
+        ((ComicsListActivity) mContext).updateResultsLabel(mDataset.size());
+    }
+
+    public void setmDataset(List<MarvelComic> dataset, String budget) {
+        this.mDataset = dataset;
+        this.notifyDataSetChanged();
+        ((ComicsListActivity) mContext).updateResultsLabelFiltered(mDataset.size(), budget);
+    }
+
     @Override
     public ComicsListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.comic_list_item_view, parent, false);
+                .inflate(R.layout.comic_list_item, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -142,11 +154,11 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
         }
         holder.setImage(url);
         holder.setTitle(comic.getTitle());
-        holder.setPages(""+comic.getPageCount());
+        holder.setPages("" + comic.getPageCount());
         MarvelComicPrice marvelComicPrice = comic.getPrices()[0];
-        if (marvelComicPrice != null){
-            holder.setPrices(""+marvelComicPrice.getPrice());
-        }else{
+        if (marvelComicPrice != null) {
+            holder.setPrices("" + marvelComicPrice.getPrice());
+        } else {
             holder.setPrices(null);
         }
         holder.setDescription(comic.getDescription());
@@ -154,13 +166,13 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
         int totalAuthorsNumber = creatorsSummary.getReturned();
         MarvelCreator[] authors = creatorsSummary.getItems();
         String authorsNames = "";
-        for(int i = 0; i < totalAuthorsNumber;i++){
+        for (int i = 0; i < totalAuthorsNumber; i++) {
             String name = authors[i].getName();
-            if(name!= null){
-                authorsNames+=name;
+            if (name != null) {
+                authorsNames += name;
             }
-            if(i != totalAuthorsNumber-1){
-                authorsNames+=" / ";
+            if (i != totalAuthorsNumber - 1) {
+                authorsNames += " / ";
             }
         }
         holder.setAuthors(authorsNames);
@@ -173,5 +185,51 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
     @Override
     public int getItemCount() {
         return mDataset.size();
+    }
+
+    public void filterComicListonBudget(final String budget) {
+
+        AsyncTask<List<MarvelComic>, Void, List<MarvelComic>> filterComics = new AsyncTask<List<MarvelComic>, Void, List<MarvelComic>>() {
+            @Override
+            protected List<MarvelComic> doInBackground(List<MarvelComic>... lists) {
+                List<MarvelComic> comicsList = lists[0];
+                //sort comics by price in ascending order
+                Collections.sort(comicsList, new Comparator<MarvelComic>() {
+                    @Override
+                    public int compare(MarvelComic c1, MarvelComic c2) {
+                        //ascending order
+                        MarvelComicPrice marvelComicPrice1 = c1.getPrices()[0];
+                        MarvelComicPrice marvelComicPrice2 = c2.getPrices()[0];
+                        if (marvelComicPrice1 != null && marvelComicPrice2 != null) {
+                            return Math.round(marvelComicPrice1.getPrice() - marvelComicPrice2.getPrice());
+                        }
+                        return 0;
+                    }
+                });
+
+                //create a new List of MarvelComic, with all comics that can be afforded with the budget.
+                float partialPrice = 0.0f;
+                int budgetValue = Integer.valueOf(budget);
+                List<MarvelComic> affordableComics = new ArrayList<MarvelComic>();
+                for (MarvelComic mc : comicsList) {
+                        MarvelComicPrice marvelComicPrice = mc.getPrices()[0];
+                        if (marvelComicPrice != null) {
+                            partialPrice += marvelComicPrice.getPrice();
+                            if(partialPrice > budgetValue){
+                                break;
+                            }else{
+                                affordableComics.add(mc);
+                            }
+                        }
+                }
+                return affordableComics;
+            }
+
+            @Override
+            protected void onPostExecute(List<MarvelComic> filteredComicList) {
+                setmDataset(filteredComicList, budget);
+            }
+        };
+        filterComics.execute(mDataset);
     }
 }
