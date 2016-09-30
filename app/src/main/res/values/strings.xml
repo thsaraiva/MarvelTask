@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">Marvel Comics</string>
     <string name="default_title_text">No title available</string>
+    <string name="default_page_text">NA</string>
+    <string name="default_price_text">NA</string>
     <string name="default_description_text">No description available</string>
+    <string name="default_author_text">No author available</string>
     <string name="details_activity_title">Comic Details</string>
     <string name="price_label">Price: $</string>
     <string name="pages_label">Pages:</string>
     <string name="description_label">Description:</string>
-    <string name="author_label">Author:</string>
+    <string name="author_label">Authors:</string>
 </resources>
