@@ -18,7 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.ComicDetailsActivity" android:label="@string/details_activity_title"></activity>
     </application>
 
 </manifest>

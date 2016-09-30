@@ -1,18 +1,15 @@
 package com.example.thiago.saraiva.marvelcomics.Activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.thiago.saraiva.marvelcomics.Adapters.ComicsListAdapter;
-import com.example.thiago.saraiva.marvelcomics.Listeners.ComicsListItemClickListener;
 import com.example.thiago.saraiva.marvelcomics.R;
 import com.example.thiago.saraiva.marvelcomics.Services.ServiceGenerator;
 
@@ -28,6 +25,9 @@ public class ComicsListActivity extends AppCompatActivity {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comics_list);
+
+//        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+//        setSupportActionBar(myToolbar);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.comics_list_recycler_view);
         mRecyclerView.setHasFixedSize(true);

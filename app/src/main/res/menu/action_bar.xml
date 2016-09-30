@@ -1,10 +1,11 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- "Filter by Budget", should appear as action button if possible -->
-    <item
+    <android:item
         android:id="@+id/action_filter"
         android:icon="@drawable/ic_filter_list_white_24dp"
-        app:showAsAction="never"/>
+        />
+    <!--app:showAsAction="never"-->
+
 
 </menu>
