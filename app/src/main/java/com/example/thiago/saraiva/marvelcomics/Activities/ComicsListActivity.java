@@ -17,6 +17,10 @@ import com.example.thiago.saraiva.marvelcomics.Model.Marvel.Comics.MarvelComicDa
 import com.example.thiago.saraiva.marvelcomics.R;
 import com.example.thiago.saraiva.marvelcomics.Services.ServiceGenerator;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 public class ComicsListActivity extends AppCompatActivity implements ComicListActivityDataSender {
 
     private RecyclerView mRecyclerView;
@@ -75,10 +79,12 @@ public class ComicsListActivity extends AppCompatActivity implements ComicListAc
     public void updateResultsLabel(MarvelComicDataContainer dataContainer) {
         TextView resultLabel = (TextView) findViewById(R.id.results_label);
         String listPrice = dataContainer.getListPrice();
+        double price = Double.valueOf(listPrice);
+        DecimalFormat formatter = new DecimalFormat("#.00", new DecimalFormatSymbols(Locale.US));
         if (listPrice.equalsIgnoreCase(null) || listPrice.equalsIgnoreCase("")) {
             resultLabel.setText(getResources().getString(R.string.results_no_filter, dataContainer.getResultsInList()));
         } else {
-            resultLabel.setText(getResources().getString(R.string.results_budget_filtered, dataContainer.getResultsInList(), listPrice));
+            resultLabel.setText(getResources().getString(R.string.results_budget_filtered, dataContainer.getResultsInList(), formatter.format(price)));
         }
         resultLabel.setVisibility(View.VISIBLE);
 
