@@ -41,8 +41,7 @@ public class ComicsListActivity extends AppCompatActivity {
 
             @Override
             public void onButtonClick(View v, int position) {
-                //TODO:decide what to do when user clicks an item on the list.
-//                String item = myDataset.get(position);
+
             }
         });
         mRecyclerView.setAdapter(mAdapter);

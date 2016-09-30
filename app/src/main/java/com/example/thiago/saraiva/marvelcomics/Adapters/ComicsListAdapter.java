@@ -50,10 +50,16 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
             mComicTitleTextView = (TextView) listItemLayoutView.findViewById(R.id.comic_title);
             mComicDescriptionTextView = (TextView) listItemLayoutView.findViewById(R.id.comic_description);
 
-            mComicThumbnailImageView.setOnClickListener(new View.OnClickListener() {
+            View titleView = listItemLayoutView.findViewById(R.id.titleView);
+            final View descriptionView = listItemLayoutView.findViewById(R.id.descriptionView);
+            titleView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onButtonClick(v, getAdapterPosition());
+                    if (descriptionView.getVisibility() == View.GONE) {
+                        descriptionView.setVisibility(View.VISIBLE);
+                    } else if (descriptionView.getVisibility() == View.VISIBLE) {
+                        descriptionView.setVisibility(View.GONE);
+                    }
                 }
             });
         }

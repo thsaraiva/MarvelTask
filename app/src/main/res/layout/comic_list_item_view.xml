@@ -2,81 +2,88 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorListItemBackground"
     android:padding="6dp">
 
-    <!-- Comic Image -->
-    <ImageView
-        android:id="@+id/comic_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginRight="6dp"
-        android:src="@drawable/no_image" />
+    <RelativeLayout
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <!-- Title -->
-    <TextView
-        android:id="@+id/comic_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/comic_image"
-        android:layout_toRightOf="@id/comic_image"
-        android:text="Titulo da historia em quadrinhos"
-        android:textSize="@dimen/title_text_size"
-        android:textStyle="bold" />
+        <!-- Comic Image -->
+        <ImageView
+            android:id="@+id/comic_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="6dp"
+            android:src="@drawable/no_image" />
 
-    <!-- Pages -->
-    <TextView
-        android:id="@+id/comic_pages_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/comic_image"
-        android:layout_alignLeft="@id/comic_title"
-        android:layout_marginRight="4dp"
-        android:layout_toRightOf="@id/comic_image"
-        android:text="@string/pages_label"
-        android:textSize="@dimen/general_text_size" />
+        <!-- Title -->
+        <TextView
+            android:id="@+id/comic_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/comic_image"
+            android:layout_toRightOf="@id/comic_image"
+            android:text="Titulo da historia em quadrinhos"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/comic_pages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/comic_image"
-        android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@id/comic_pages_label"
-        android:text="5"
-        android:textSize="@dimen/general_text_size" />
+        <!-- Pages -->
+        <TextView
+            android:id="@+id/comic_pages_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/comic_image"
+            android:layout_alignLeft="@id/comic_title"
+            android:layout_marginRight="4dp"
+            android:layout_toRightOf="@id/comic_image"
+            android:text="@string/pages_label"
+            android:textSize="@dimen/general_text_size" />
+
+        <TextView
+            android:id="@+id/comic_pages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/comic_image"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/comic_pages_label"
+            android:text="5"
+            android:textSize="@dimen/general_text_size" />
 
 
-    <!-- Price -->
-    <TextView
-        android:id="@+id/comic_price_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/comic_image"
-        android:layout_toLeftOf="@id/comic_price"
-        android:text="@string/price_label"
-        android:textSize="@dimen/general_text_size" />
+        <!-- Price -->
+        <TextView
+            android:id="@+id/comic_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/comic_image"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="4dp"
+            android:text="5.99"
+            android:textSize="@dimen/general_text_size" />
 
-    <TextView
-        android:id="@+id/comic_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/comic_image"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="4dp"
-        android:text="5.99"
-        android:textSize="@dimen/general_text_size" />
+        <TextView
+            android:id="@+id/comic_price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/comic_image"
+            android:layout_toLeftOf="@id/comic_price"
+            android:text="@string/price_label"
+            android:textSize="@dimen/general_text_size" />
+
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/descriptionView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/comic_image"
+        android:layout_below="@id/titleView"
         android:layout_marginTop="6dp"
-        android:visibility="gone"
-        android:background="@color/colorDescriptionBackground">
+        android:background="@color/colorDescriptionBackground"
+        android:visibility="visible">
 
         <!-- Description -->
         <TextView
@@ -95,8 +102,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/description_label"
-            android:layout_marginLeft="4dp"
             android:layout_marginBottom="4dp"
+            android:layout_marginLeft="4dp"
             android:text="5idshagfklisanfildsnfiçlhsdnaçilfnsdçailnfçulsdnbfçlsdhfliçjnsdilçfnsdilnfkulsdnbaçufsdnklfjsdkljflçisdnafilsndafçilhdlçashfçlkdhnasflkçndsçailfndlisçanfçlidshafnilasdçhn"
             android:textSize="@dimen/general_text_size" />
 
@@ -106,8 +113,8 @@
             android:id="@+id/comic_author_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:layout_below="@id/comic_description"
+            android:layout_marginTop="4dp"
             android:text="@string/author_label"
             android:textSize="@dimen/general_text_size" />
 
@@ -115,14 +122,10 @@
             android:id="@+id/comic_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/comic_author_label"
             android:layout_alignBottom="@id/comic_author_label"
             android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/comic_author_label"
             android:text="Camoes / Shakespeare"
             android:textSize="@dimen/general_text_size" />
-
-
     </RelativeLayout>
-
-
 </RelativeLayout>
