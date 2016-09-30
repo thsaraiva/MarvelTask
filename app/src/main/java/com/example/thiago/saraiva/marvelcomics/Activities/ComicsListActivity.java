@@ -68,8 +68,4 @@ public class ComicsListActivity extends AppCompatActivity {
             return false;
     }
 
-    public void openDescriptionView(View view) {
-        Intent detailActIntent = new Intent(this,ComicDetailsActivity.class);
-        startActivity(detailActIntent);
-    }
 }
