@@ -138,7 +138,8 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
                         }
                     }
                 }
-                dataContainer.setResultsInList(comicsList.size());
+                dataContainer.setResults(affordableComics.toArray(new MarvelComic[1]));
+                dataContainer.setResultsInList(affordableComics.size());
                 dataContainer.setTotalNumberOfPagesInList(totalNumberOfPages);
                 dataContainer.setListPrice("" + totalPrice);
                 return dataContainer;
